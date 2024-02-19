@@ -1,0 +1,33 @@
+﻿@model HtmxProject.Pages.Companies.IndexModel
+
+@if (Model.Items.Count > 0)
+{
+	for (var i = 0; i < Model.Items.Count; i++)
+	{
+		<div @if (i + 1 == Model.PageSize)
+		{
+			<text>
+				hx-get="/companies?PageIndex=@(Model.PageIndex + 1)"
+				hx-include=".form-companies"
+				hx-trigger="revealed"
+				hx-swap="afterend"
+			</text>
+		}
+		class="p-5 border border-solid border-gray-300 mb-4 flex">
+			<div class="mr-2">
+				<img src="https://random.imagecdn.app/80/80" alt="Image">
+			</div>
+			<ul class="list-none">
+				<li>@Model.Items[i].Name</li>
+				<li>@Model.Items[i].Id</li>
+				<li class="@(Model.Items[i].IsVerified ? "text-green-500" : "text-red-500")">
+					@(Model.Items[i].IsVerified ? "Verified" : "Unverified")
+				</li>
+			</ul>
+		</div>
+	}
+}
+else
+{
+	<p>No more data</p>
+}

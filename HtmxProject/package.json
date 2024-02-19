@@ -1,0 +1,37 @@
+{
+  "name": "htmxproject",
+  "version": "1.0.0",
+  "description": "Building with HTMX",
+  "watch": {
+    "build:css": {
+      "patterns": [
+        "wwwroot/css",
+        "Pages"
+      ],
+      "extensions": "css, cshtml",
+      "runOnChangeOnly": true
+    }
+  },
+  "scripts": {
+    "dotnet-watch": "dotnet watch",
+    "dotnet-build": "dotnet build",
+    "build": "cross-env NODE_ENV=production && build:css",
+    "build:css": "postcss ./wwwroot/css/site.css -o ./wwwroot/bundles/css/tailwind.css",
+    "watch": "npm-watch"
+  },
+  "author": "Mirza Cupina",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^10.4.16",
+    "cssnano": "^6.0.1",
+    "postcss-cli": "^10.1.0",
+    "postcss-nested": "^6.0.1",
+    "tailwindcss": "^3.3.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/forms": "^0.5.7",
+    "cross-env": "^7.0.3",
+    "htmx.org": "^1.9.6",
+    "npm-watch": "^0.11.0"
+  }
+}
