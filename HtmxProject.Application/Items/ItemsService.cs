@@ -1,9 +1,10 @@
-﻿using HtmxProject.Database;
+﻿using HtmxProject.Application.Base;
+using HtmxProject.Database;
 using HtmxProject.Domain;
 
 namespace HtmxProject.Application.Items
 {
-	public class ItemsService : IItemsService
+    public class ItemsService : IItemsService
 	{
 		private readonly HtmxDbContext _context;
 

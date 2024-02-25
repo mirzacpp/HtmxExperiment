@@ -1,9 +1,9 @@
-﻿using HtmxProject.Application.Items;
+﻿using HtmxProject.Application.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace HtmxProject.Application
 {
-	public static class PagingExtensions
+    public static class PagingExtensions
 	{
 		public static async Task<PagedResultDto<TDto>> ToPagedListAsync<TDto>(this IQueryable<TDto> query, int page, int pageSize, CancellationToken cancellationToken = default)
 		{

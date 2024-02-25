@@ -1,0 +1,17 @@
+﻿@model HtmxProject.Pages.Items.ItemsSearchModel
+
+<form class="form-items"
+	  hx-get="/items"
+	  hx-target="#data-content"
+	  hx-trigger="submit"
+	  hx-indicator=".htmx-indicator">
+	<div class="flex flex-col gap-2 items-stretch shadow-md p-4">
+		<label asp-for="Term">Search term</label>
+		<input asp-for="Term" placeholder="Item name..." type="text" />
+		<label asp-for="ManufacturerId">Manufacturer</label>
+		<select asp-for="ManufacturerId" asp-items="Model.Manufacturers"></select>
+		<button class="bg-primary hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded block" type="submit">
+			Filter
+		</button>
+	</div>
+</form>

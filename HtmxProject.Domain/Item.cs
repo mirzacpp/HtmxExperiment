@@ -9,4 +9,8 @@ public class Item : Entity<Guid>
 	public DateTime CreatedAtUtc { get; set; }
 	public DateTime? UpdatedAtUtc { get; set; }
 	public Guid CompanyId { get; set; }
+	public Guid ManufacturerId { get; set; }
+	public Guid CategoryId { get; set; }
+	public double StockQuantity { get; set; }
+	public Guid QuantityUnitId { get; set; }
 }

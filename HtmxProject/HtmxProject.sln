@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HtmxProject.Domain", "..\Ht
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HtmxProject.Database", "..\HtmxProject.Database\HtmxProject.Database.csproj", "{84D90CDD-3243-434E-9178-7C5CDE5DF7D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmxProject.Application", "..\HtmxProject.Application\HtmxProject.Application.csproj", "{96185B34-A01B-4714-A493-905D1C1B957E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HtmxProject.Application", "..\HtmxProject.Application\HtmxProject.Application.csproj", "{96185B34-A01B-4714-A493-905D1C1B957E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
