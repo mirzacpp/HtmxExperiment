@@ -7,11 +7,10 @@
 	<div id="search-form-content"
 		 hx-get="/items?handler=searchForm"
 		 hx-target="#search-form-content"
-		 hx-trigger="load"
-		 hx-indicator=".left-indicator">
+		 hx-trigger="load">
 	</div>
 }
-<div id="data-content">
+<div class="@(Model.SearchModel.ViewMode == TableViewMode.Grid ? "grid grid-cols-4 gap-4" : null)" id="data-content">
 	@await Html.PartialAsync("_Data", Model)
 </div>
 <div class="htmx-indicator">

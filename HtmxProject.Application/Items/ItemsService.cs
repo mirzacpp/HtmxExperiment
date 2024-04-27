@@ -4,7 +4,7 @@ using HtmxProject.Domain;
 
 namespace HtmxProject.Application.Items
 {
-    public class ItemsService : IItemsService
+	public class ItemsService : IItemsService
 	{
 		private readonly HtmxDbContext _context;
 
@@ -13,7 +13,11 @@ namespace HtmxProject.Application.Items
 			_context = context;
 		}
 
-		public async Task<PagedResultDto<ItemsDto>> GetAsync(int page, int pageSize, string searchTerm = null)
+		public async Task<PagedResultDto<ItemsDto>> GetAsync(
+			int page,
+			int pageSize,
+			string searchTerm = null,
+			Guid? categoryId = null)
 		{
 			var query = _context.Set<Item>().AsQueryable();
 
@@ -22,8 +26,15 @@ namespace HtmxProject.Application.Items
 				query = query.Where(c => c.Name.Contains(searchTerm));
 			}
 
+			if (categoryId.HasValue)
+			{
+				query = query.Where(c => c.CategoryId == categoryId.Value);
+			}
+
 			return await (from i in query
 						  join c in _context.Set<Company>() on i.CompanyId equals c.Id
+						  join cat in _context.Set<Category>() on i.CategoryId equals cat.Id
+						  orderby i.Id
 						  select new ItemsDto
 						  {
 							  Id = i.Id,
@@ -31,7 +42,7 @@ namespace HtmxProject.Application.Items
 							  CompanyId = i.CompanyId,
 							  Description = i.Description,
 							  ManufacturedAt = i.ManufacturedAt,
-							  CompanyName = c.Name
+							  CompanyName = cat.Name
 						  })
 			.ToPagedListAsync(page, pageSize, CancellationToken.None) //Get current ctx token source
 			.ConfigureAwait(false);

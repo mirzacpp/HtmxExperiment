@@ -1,4 +1,16 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+var LayoutUtils = function () {
+    var toggleMode = function () {     
+        if (!('theme' in localStorage) || localStorage.theme === 'dark') {
+            localStorage.theme = 'light';
+            document.querySelector('html').classList.remove('dark');
+        }
+        else {
+            localStorage.theme = 'dark';
+            document.querySelector('html').classList.add('dark');
+        }
+    };
 
-// Write your JavaScript code.
+    return {
+        toggleMode: toggleMode
+    }
+}();

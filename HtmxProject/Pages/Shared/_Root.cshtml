@@ -5,10 +5,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>@ViewData["Title"] - HtmxProject</title>
 	<link rel="stylesheet" href="~/bundles/css/tailwind.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/bundles/css/accordion.css" asp-append-version="true" />
 	@await RenderSectionAsync("Styles", required: false)
 </head>
-<body>
-	<nav id="header" class="fixed w-full z-10 top-0 bg-blue-500">
+<body class="dark:bg-[#161c23] scrollbar-thin scrollbar-thumb-sky-700 scrollbar-track-sky-300" hx-ext="loading-states">
+	<nav id="header" class="fixed w-full z-10 top-0 bg-blue-500 dark:bg-black-600">
 		<div class="w-full md:max-w-4xl mx-auto flex flex-wrap items-center justify-between mt-0 py-3">
 			<div class="pl-4">
 				<a class="text-gray-900 text-base no-underline hover:no-underline font-extrabold text-xl" href="#">
@@ -35,7 +36,7 @@
 						   href="#">link</a>
 					</li>
 					<li class="mr-3">
-						<a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4"
+						<a class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4" onclick="LayoutUtils.toggleMode();"
 						   href="#">link</a>
 					</li>
 				</ul>
@@ -75,13 +76,12 @@
 					</div>
 				</div>
 			</div>
-
-
-
 		</div>
 	</footer>
 	@* Copy js to bundle directory *@
 	<script src="~/bundles/js/htmx.js"></script>
+	<script src="~/bundles/js/loading-states.js"></script>
+	<script src="~/bundles/js/accordion.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
 	@await RenderSectionAsync("Scripts", required: false)
 </body>

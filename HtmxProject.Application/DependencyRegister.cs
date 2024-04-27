@@ -1,4 +1,5 @@
-﻿using HtmxProject.Application.Items;
+﻿using HtmxProject.Application.Categories;
+using HtmxProject.Application.Items;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -7,6 +8,7 @@ namespace Microsoft.Extensions.DependencyInjection
 		public static IServiceCollection AddApplicationDependencies(this IServiceCollection services)
 		{
 			services.AddScoped<IItemsService, ItemsService>();
+			services.AddScoped<ICategoryService, CategoryService>();
 
 			return services;
 		}

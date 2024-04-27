@@ -6,12 +6,78 @@
 	  hx-trigger="submit"
 	  hx-indicator=".htmx-indicator">
 	<div class="flex flex-col gap-2 items-stretch shadow-md p-4">
+		<ul class="grid w-full gap-6 md:grid-cols-2">
+			<li>
+				<input asp-for="ViewMode" type="radio" id="hosting-small" name="hosting" value="hosting-small" class="hidden peer" required checked="@(Model.ViewMode == TableViewMode.Grid)" />
+				<label for="hosting-small" class="inline-flex items-center justify-center w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+						<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+							<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z" />
+						</svg>
+				</label>
+			</li>
+			<li>
+				<input asp-for="ViewMode" type="radio" id="hosting-big" name="hosting" value="hosting-big" class="hidden peer" checked="@(Model.ViewMode == TableViewMode.List)">
+				<label for="hosting-big" class="inline-flex items-center justify-center w-full p-2 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+						<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+							<path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M9 8h10M9 12h10M9 16h10M4.99 8H5m-.02 4h.01m0 4H5" />
+						</svg>
+				</label>
+			</li>
+		</ul>
 		<label asp-for="Term">Search term</label>
 		<input asp-for="Term" placeholder="Item name..." type="text" />
-		<label asp-for="ManufacturerId">Manufacturer</label>
-		<select asp-for="ManufacturerId" asp-items="Model.Manufacturers"></select>
+		@* <label asp-for="CategoryId">Category</label>
+		<select asp-for="CategoryId" asp-items="Model.Categories"></select> *@
+		<div class="scrollbar-thin max-h-[300px] overflow-y-auto">
+			@foreach(var category in Model.Categories)
+			{
+				<div class="flex items-center mb-4">
+					<input name="@Html.NameFor(m => m.CategoryId)" type="checkbox" value="@category.Value" id="category-@category.Value" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" checked="@(category.Value == Model.CategoryId?.ToString())">
+					<label for="default-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+						@category.Text
+						</label>
+				</div>
+			}
+		</div>
+		<div class="accordion-container">
+			<div class="ac ac-1">
+				<h2 class="ac-header">
+					<button type="button" class="ac-trigger">Lorem ipsum dolor sit amet.</button>
+				</h2>
+				<div class="ac-panel">
+					<p class="ac-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+				</div>
+			</div>
+
+			<div class="ac">
+				<h2 class="ac-header">
+					<button type="button" class="ac-trigger">Lorem ipsum dolor sit amet.</button>
+				</h2>
+				<div class="ac-panel">
+					<p class="ac-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+				</div>
+			</div>
+
+			<div class="ac">
+				<h2 class="ac-header">
+					<button type="button" class="ac-trigger">Lorem ipsum dolor sit amet.</button>
+				</h2>
+				<div class="ac-panel">
+					<p class="ac-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+				</div>
+			</div>
+		</div>
 		<button class="bg-primary hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded block" type="submit">
-			Filter
+			Apply
 		</button>
 	</div>
 </form>
+<script>
+	if (document.readyState === "complete" || document.readyState === "interactive") {
+		// call on next available tick
+		setTimeout(() => { new Accordion('.accordion-container', {openOnInit: ['.ac-1']}) }, 1);
+	} else {
+		document.addEventListener("DOMContentLoaded", () => { new Accordion('.accordion-container', { openOnInit: ['.ac-1'] }) })
+	});
+	}
+</script>

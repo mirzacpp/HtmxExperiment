@@ -8,5 +8,6 @@
 		public DateTime ManufacturedAt { get; set; }
 		public Guid CompanyId { get; set; }
 		public string CompanyName { get; set; } = "";
+		public string Category { get; set; } = "";
 	}
 }

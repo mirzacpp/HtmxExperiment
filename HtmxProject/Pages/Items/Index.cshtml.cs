@@ -1,10 +1,17 @@
 using Htmx;
 using HtmxProject.Application.Base;
+using HtmxProject.Application.Categories;
 using HtmxProject.Application.Items;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HtmxProject.Pages.Items;
+
+public enum TableViewMode
+{
+    Grid,
+    List
+}
 
 public sealed class ItemsSearchModel
 {
@@ -12,23 +19,28 @@ public sealed class ItemsSearchModel
     public string? Term { get; set; }
 
     [BindProperty(SupportsGet = true)]
-    public Guid? ManufacturerId { get; set; }
+    public Guid? CategoryId { get; set; }
 
-    public IEnumerable<SelectListItem> Manufacturers { get; set; }
+    public TableViewMode ViewMode { get; set; }
+
+    public IEnumerable<SelectListItem> Categories { get; set; }
 
     public ItemsSearchModel()
     {
-        Manufacturers = Enumerable.Empty<SelectListItem>();
+        ViewMode = TableViewMode.Grid;
+        Categories = Enumerable.Empty<SelectListItem>();
     }
 }
 
 public class IndexModel : PaginatedPageModel
 {
     private readonly IItemsService _itemsService;
+    private readonly ICategoryService _categoryService;
 
-    public IndexModel(IItemsService itemsService)
+    public IndexModel(IItemsService itemsService, ICategoryService categoryService)
     {
         _itemsService = itemsService;
+        _categoryService = categoryService;
     }
 
     [BindProperty(SupportsGet = true)]
@@ -38,7 +50,11 @@ public class IndexModel : PaginatedPageModel
 
     public async Task<IActionResult> OnGetAsync()
     {
-        PagedResult = await _itemsService.GetAsync(PageIndex, PageSize, SearchModel?.Term);
+        PagedResult = await _itemsService.GetAsync(
+        PageIndex,
+        PageSize,
+        SearchModel?.Term,
+        SearchModel.CategoryId);
 
         return Request.IsHtmx()
         ? Partial("_Data", this)
@@ -47,15 +63,13 @@ public class IndexModel : PaginatedPageModel
 
     public async Task<IActionResult> OnGetSearchForm()
     {
-        await Task.Delay(2000);
-
         var model = new ItemsSearchModel
         {
-            Manufacturers = new[] { "Seiko", "Casio" }
-            .Select(m => new SelectListItem
+            Categories = (await _categoryService.GetAsNameValueAsync())
+            .Select(c => new SelectListItem
             {
-                Value = Guid.NewGuid().ToString(),
-                Text = m,
+                Value = c.Value.ToString(),
+                Text = c.Name,
             })
             .ToList()
         };

@@ -1,4 +1,5 @@
 module.exports = {
+    darkMode: 'class',
     theme: {
         extend: {
             colors: {
@@ -9,5 +10,6 @@ module.exports = {
     content: ["./Pages/**/*.{cshtml,js,css}"],
     plugins: [
         require('@tailwindcss/forms'),
+        require('tailwind-scrollbar')({ preferredStrategy: 'pseudoelements' }),
     ]
 }
