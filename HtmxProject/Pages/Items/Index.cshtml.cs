@@ -7,12 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HtmxProject.Pages.Items;
 
-public enum TableViewMode
-{
-    Grid,
-    List
-}
-
 public sealed class ItemsSearchModel
 {
     [BindProperty(SupportsGet = true)]
@@ -21,13 +15,10 @@ public sealed class ItemsSearchModel
     [BindProperty(SupportsGet = true)]
     public Guid? CategoryId { get; set; }
 
-    public TableViewMode ViewMode { get; set; }
-
     public IEnumerable<SelectListItem> Categories { get; set; }
 
     public ItemsSearchModel()
     {
-        ViewMode = TableViewMode.Grid;
         Categories = Enumerable.Empty<SelectListItem>();
     }
 }
@@ -55,6 +46,17 @@ public class IndexModel : PaginatedPageModel
         PageSize,
         SearchModel?.Term,
         SearchModel.CategoryId);
+
+        SearchModel = new ItemsSearchModel
+        {
+            Categories = (await _categoryService.GetAsNameValueAsync())
+            .Select(c => new SelectListItem
+            {
+                Value = c.Value.ToString(),
+                Text = c.Name,
+            })
+            .ToList()
+        };
 
         return Request.IsHtmx()
         ? Partial("_Data", this)

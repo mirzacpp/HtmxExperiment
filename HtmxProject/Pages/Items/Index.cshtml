@@ -4,13 +4,14 @@
 	Layout = "_TwoColumn";
 }
 @section Left {
-	<div id="search-form-content"
+	@await Html.PartialAsync("_SearchForm", Model.SearchModel)
+	@* <div id="search-form-content"
 		 hx-get="/items?handler=searchForm"
 		 hx-target="#search-form-content"
 		 hx-trigger="load">
-	</div>
+	</div> *@
 }
-<div class="@(Model.SearchModel.ViewMode == TableViewMode.Grid ? "grid grid-cols-4 gap-4" : null)" id="data-content">
+<div id="data-content">
 	@await Html.PartialAsync("_Data", Model)
 </div>
 <div class="htmx-indicator">

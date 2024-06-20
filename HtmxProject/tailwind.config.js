@@ -7,7 +7,7 @@ module.exports = {
             }
         },
     },
-    content: ["./Pages/**/*.{cshtml,js,css}"],
+    content: ["./Pages/**/*.{cshtml,js,css}", "./Infrastructure/TagHelpers/**/*.cs"],
     plugins: [
         require('@tailwindcss/forms'),
         require('tailwind-scrollbar')({ preferredStrategy: 'pseudoelements' }),

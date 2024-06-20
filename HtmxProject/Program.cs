@@ -1,10 +1,13 @@
 using HtmxProject.Database;
+using HtmxProject.Infrastructure.StaticContent;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddHtmxDbContext(builder.Environment.IsDevelopment());
 builder.Services.AddApplicationDependencies();
+builder.Services.AddScoped<HtmlContentManager>();
 
 var app = builder.Build();
 

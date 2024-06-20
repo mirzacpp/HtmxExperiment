@@ -32,8 +32,6 @@ public class IndexModel : PaginatedPageModel
 
     public async Task<IActionResult> OnGetAsync()
     {
-        await Task.Delay(2000);
-
         var query = _dbContext.Set<Company>().Where(c => c.IsVerified == ShowVerifiedOnly);
 
         if (!string.IsNullOrEmpty(SearchTerm))
