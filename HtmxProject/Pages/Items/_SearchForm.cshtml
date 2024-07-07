@@ -8,12 +8,15 @@
 	<div class="flex flex-col gap-2 items-stretch">
 		<label asp-for="Term">Search term</label>
 		<input asp-for="Term" placeholder="Item name..." type="text" />
-		<accordion id="accordion-container">
+		<accordion id="accordion-container" collapsed="false">
 			<accordion-item>
 				<accordion-header title="Categories" />
 				<accordion-body>
 					<div class="p-2">
 						<div class="scrollbar-thin max-h-[300px] overflow-y-auto">
+							@Html.AutocompleteFor(m => m.CategoryId, "/categories?handler=autocomplete")
+
+							@* <input type="text" placeholder="Search for ..." class="w-full mb-2" />
 							@foreach (var category in Model.Categories)
 							{
 							<div class="flex items-center mb-4">
@@ -21,8 +24,8 @@
 								<label for="default-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
 									@category.Text
 								</label>
-							</div>
-							}
+							</div> 
+							}*@
 						</div>
 					</div>
 				</accordion-body>

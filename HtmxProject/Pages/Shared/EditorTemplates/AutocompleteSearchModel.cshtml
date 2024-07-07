@@ -1,0 +1,18 @@
+﻿@model HtmxProject.Pages.Base.AutocompleteSearchModel
+@{
+	var resultElementId = Model.PropertyName + "-search-results";
+}
+<div class="autocomplete-search-container w-full">
+	<input type="hidden" name="@Model.PropertyName" />
+	<input name="searchTerm"
+		type="search"
+		hx-post="@Model.Url"
+		hx-trigger="input changed delay:500ms, search"
+		hx-target="#@resultElementId"		
+		placeholder="Search for something ..." />
+	<div id="@resultElementId">
+
+	</div>
+</div>
+
+

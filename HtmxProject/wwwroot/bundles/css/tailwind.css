@@ -1485,8 +1485,15 @@ select {
   --tw-content: '+';
   content: var(--tw-content);
 }
+.group\/accordion.is-active .group-\[\.is-active\]\/accordion\:\!visible {
+  visibility: visible !important;
+}
 .group\/accordion.js-enabled .group-\[\.js-enabled\]\/accordion\:invisible {
   visibility: hidden;
+}
+.group\/accordion.is-active .group-\[\.is-active\]\/accordion\:after\:content-\[\'-\'\]::after {
+  --tw-content: '-';
+  content: var(--tw-content);
 }
 .hover\:border-blue-500:hover {
   --tw-border-opacity: 1;

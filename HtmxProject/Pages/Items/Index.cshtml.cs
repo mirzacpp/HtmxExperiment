@@ -2,6 +2,7 @@ using Htmx;
 using HtmxProject.Application.Base;
 using HtmxProject.Application.Categories;
 using HtmxProject.Application.Items;
+using HtmxProject.Pages.Base;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -14,6 +15,8 @@ public sealed class ItemsSearchModel
 
     [BindProperty(SupportsGet = true)]
     public Guid? CategoryId { get; set; }
+
+    public AutocompleteSearchModel CategoriesSearch { get; set; }
 
     public IEnumerable<SelectListItem> Categories { get; set; }
 
@@ -55,7 +58,11 @@ public class IndexModel : PaginatedPageModel
                 Value = c.Value.ToString(),
                 Text = c.Name,
             })
-            .ToList()
+            .ToList(),
+            CategoriesSearch = new AutocompleteSearchModel {
+            PropertyName = "Category",
+            Url = ""
+            }
         };
 
         return Request.IsHtmx()
