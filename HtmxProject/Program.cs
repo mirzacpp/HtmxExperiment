@@ -1,3 +1,4 @@
+using Htmx.TagHelpers;
 using HtmxProject.Database;
 using HtmxProject.Infrastructure.StaticContent;
 
@@ -27,9 +28,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
 app.UseAuthorization();
-
+app.MapHtmxAntiforgeryScript();
 app.MapRazorPages();
 
 app.Run();

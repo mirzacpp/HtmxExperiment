@@ -14,14 +14,16 @@ namespace HtmxProject.Application.Categories
 			_context = context;
 		}
 
-		public async Task<IReadOnlyCollection<NameValueDto<Guid>>> GetAsNameValueAsync()
+		public async Task<IReadOnlyCollection<NameValueDto<Guid>>> GetAsNameValueAsync(int take = 20, string? searchTerm = null)
 		{
 			return await _context.Set<Category>()
+				.WhereIf(!string.IsNullOrEmpty(searchTerm), c => c.Name.Contains(searchTerm!))
 				.Select(c => new NameValueDto<Guid>
 				{
 					Name = c.Name,
 					Value = c.Id
 				})
+				.Take(take)
 				.ToListAsync();
 		}
 	}

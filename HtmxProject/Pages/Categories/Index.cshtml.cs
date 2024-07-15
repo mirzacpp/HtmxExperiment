@@ -1,10 +1,12 @@
 using HtmxProject.Application.Categories;
 using HtmxProject.Pages.Base;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HtmxProject.Pages.Categories;
 
+//[IgnoreAntiforgeryToken]
 public class IndexModel : PageModel
 {
     private readonly ICategoryService _categoryService;
@@ -18,16 +20,21 @@ public class IndexModel : PageModel
     {
     }
 
-    public async Task<IActionResult> OnPostAutocomplete(string searchTerm = null)
+    public async Task<IActionResult> OnPostAutocomplete(string? searchTerm = null)
     {
         var categories = (await _categoryService
-        .GetAsNameValueAsync())
+        .GetAsNameValueAsync(searchTerm: searchTerm))
         .Select(item => new AutocompleteResultModel
         {
             Text = item.Name,
             Value = item.Value.ToString()
         });
 
-        return Partial("_AutocompleteResults", categories);
+        return Partial("_AutocompleteResults", categories.ToList());
+    }
+
+    public IActionResult OnGetTestovka()
+    {
+        return Content("<p>Testovka</p>");
     }
 }

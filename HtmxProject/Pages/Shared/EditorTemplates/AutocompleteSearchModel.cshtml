@@ -3,16 +3,40 @@
 	var resultElementId = Model.PropertyName + "-search-results";
 }
 <div class="autocomplete-search-container w-full">
-	<input type="hidden" name="@Model.PropertyName" />
+	<input type="hidden" id="@Model.PropertyName" name="@Model.PropertyName" />
 	<input name="searchTerm"
-		type="search"
-		hx-post="@Model.Url"
-		hx-trigger="input changed delay:500ms, search"
-		hx-target="#@resultElementId"		
-		placeholder="Search for something ..." />
+		   id="searchTerm"
+		   type="search"
+		   hx-post="@Model.Url"
+		   hx-trigger="input changed delay:500ms, search, init"
+		   hx-target="#@resultElementId"
+		   hx-params="searchTerm"
+		   hx-on::after-request="bindCheckboxes()"
+		   placeholder="Search for something ..."
+		   hx-push-url="false"
+		   class="mb-4 w-full" />
 	<div id="@resultElementId">
-
 	</div>
 </div>
+<script>
+	var _valueField = document.querySelector("#@Model.PropertyName");
+	var _resultElement = document.querySelector("#@resultElementId");
+
+	function bindCheckboxes() {
+		var checkboxes = _resultElement
+			.querySelectorAll("input[type=checkbox]");
+
+		for (var i = 0; i < checkboxes.length; i++) {
+			checkboxes[i].onclick = function (e) {
+				var _activeCheckbox = _resultElement
+					.querySelector(`input[type=checkbox]:checked:not(input[value='${this.value}'])`);
+				if (_activeCheckbox) {
+					_activeCheckbox.checked = false;
+				}
+				_valueField.value = this.value;
+			}
+		}
+	}
+</script>
 
 

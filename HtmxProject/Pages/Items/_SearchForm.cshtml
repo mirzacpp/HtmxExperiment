@@ -4,6 +4,7 @@
 	  hx-get="/items"
 	  hx-target="#data-content"
 	  hx-trigger="submit"
+	  hx-push-url="true"
 	  hx-indicator=".htmx-indicator">
 	<div class="flex flex-col gap-2 items-stretch">
 		<label asp-for="Term">Search term</label>
@@ -15,17 +16,6 @@
 					<div class="p-2">
 						<div class="scrollbar-thin max-h-[300px] overflow-y-auto">
 							@Html.AutocompleteFor(m => m.CategoryId, "/categories?handler=autocomplete")
-
-							@* <input type="text" placeholder="Search for ..." class="w-full mb-2" />
-							@foreach (var category in Model.Categories)
-							{
-							<div class="flex items-center mb-4">
-								<input name="@Html.NameFor(m => m.CategoryId)" type="checkbox" value="@category.Value" id="category-@category.Value" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" checked="@(category.Value == Model.CategoryId?.ToString())">
-								<label for="default-checkbox" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-									@category.Text
-								</label>
-							</div> 
-							}*@
 						</div>
 					</div>
 				</accordion-body>

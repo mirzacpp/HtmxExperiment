@@ -1,4 +1,5 @@
-﻿@inject HtmxProject.Infrastructure.StaticContent.HtmlContentManager JavaScriptBundler
+﻿@using Htmx.TagHelpers
+@inject HtmxProject.Infrastructure.StaticContent.HtmlContentManager JavaScriptBundler
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,9 +7,14 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>@ViewData["Title"] - HtmxProject</title>
+	<meta name="htmx-config"
+		  historyCacheSize="20"
+		  indicatorClass="htmx-indicator"
+		  includeAspNetAntiforgeryToken="true" />
 	<link rel="stylesheet" href="~/bundles/css/tailwind.css" asp-append-version="true" />
 	@* <link rel="stylesheet" href="~/bundles/css/accordion.css" asp-append-version="true" /> *@
 	@await RenderSectionAsync("Styles", required: false)
+	<script src="@HtmxAntiforgeryScriptEndpoints.Path" defer></script>
 </head>
 <body class="dark:bg-[#161c23] scrollbar-thin scrollbar-thumb-sky-700 scrollbar-track-sky-300" hx-ext="loading-states">
 	<nav id="header" class="fixed w-full z-10 top-0 bg-blue-500 dark:bg-black-600">
