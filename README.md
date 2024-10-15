@@ -1,1 +1,1 @@
-Messing around with .NET Razor Pages HTMX.
+Messing around with .NET Razor Pages and HTMX.
