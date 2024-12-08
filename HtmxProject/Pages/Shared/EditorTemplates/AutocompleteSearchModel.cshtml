@@ -8,7 +8,7 @@
 		   id="searchTerm"
 		   type="search"
 		   hx-post="@Model.Url"
-		   hx-trigger="input changed delay:500ms, search, init"
+		   hx-trigger="input changed delay:500ms, search, load"
 		   hx-target="#@resultElementId"
 		   hx-params="searchTerm"
 		   hx-on::after-request="bindCheckboxes()"
@@ -18,7 +18,7 @@
 	<div id="@resultElementId">
 	</div>
 </div>
-<script>
+<script asp-location="Footer">
 	var _valueField = document.querySelector("#@Model.PropertyName");
 	var _resultElement = document.querySelector("#@resultElementId");
 

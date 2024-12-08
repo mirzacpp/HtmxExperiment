@@ -22,7 +22,7 @@ public sealed class ItemsSearchModel
 
     public ItemsSearchModel()
     {
-        Categories = Enumerable.Empty<SelectListItem>();
+        Categories = [];
     }
 }
 
@@ -59,14 +59,15 @@ public class IndexModel : PaginatedPageModel
                 Text = c.Name,
             })
             .ToList(),
-            CategoriesSearch = new AutocompleteSearchModel {
-            PropertyName = "Category",
-            Url = ""
+            CategoriesSearch = new AutocompleteSearchModel
+            {
+                PropertyName = "Category",
+                Url = ""
             }
         };
 
         return Request.IsHtmx()
-        ? Partial("_Data", this)
+        ? Partial("_Grid", this)
         : Page();
     }
 

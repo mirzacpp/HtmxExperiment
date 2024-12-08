@@ -4,10 +4,7 @@
     {
         public long TotalCount { get; set; }
 
-        public PagedResultDto(long totalCount, IReadOnlyList<T> items)
-        : base(items)
-        {
-            TotalCount = totalCount;
-        }
-    }
+		public PagedResultDto(long totalCount, IReadOnlyList<T> items)
+		: base(items) => TotalCount = totalCount;
+	}
 }

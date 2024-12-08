@@ -4,7 +4,7 @@
 {
 	for (var i = 0; i < Model.Items.Count; i++)
 	{
-		<div @if (i + 1 == Model.PageSize)
+		@* <div @if (i + 1 == Model.PageSize)
 		{
 			<text>
 				hx-get="/companies?PageIndex=@(Model.PageIndex + 1)"
@@ -24,7 +24,7 @@
 					@(Model.Items[i].IsVerified ? "Verified" : "Unverified")
 				</li>
 			</ul>
-		</div>
+		</div> *@
 	}
 }
 else

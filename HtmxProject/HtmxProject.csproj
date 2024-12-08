@@ -11,10 +11,12 @@
   <ItemGroup>
     <PackageReference Include="Htmx" Version="1.8.0" />
     <PackageReference Include="Htmx.TagHelpers" Version="1.8.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="8.0.11" />
     <PackageReference Include="SonarAnalyzer.Csharp" Version="9.32.0.97167">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
   </ItemGroup>
 
   <ItemGroup>

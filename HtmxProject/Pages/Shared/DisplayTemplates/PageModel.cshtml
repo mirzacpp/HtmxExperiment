@@ -1,0 +1,43 @@
+﻿@model HtmxProject.Models.Base.PageModel
+@{
+	var (startPageIndex, endPageIndex) = Model.GetPageIndexPoints();
+	var pageUrlTemplate = $"{Model.PageUrl}?p={{0}}&ps={{1}}";
+}
+<nav aria-label="Page navigation example">
+	<ul class="inline-flex -space-x-px text-base h-10 cursor-pointer">
+		<li>
+			<a hx-get="@(string.Format(pageUrlTemplate, Model.PreviousPage, Model.PageSize))"
+			   hx-target="#data-content"
+			   hx-trigger="click"
+			   hx-push-url="true"
+			   hx-include=".form-items"
+			   hx-swap="innerHTML show:#data-content:top"
+			   class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+				Previous
+			</a>
+		</li>
+		@for (int i = startPageIndex; i <= endPageIndex; i++)
+		{
+			<li>
+				<a hx-get="@(string.Format(pageUrlTemplate, i, Model.PageSize))"
+				   hx-target="#data-content"
+				   hx-trigger="click"
+				   hx-push-url="true"
+				   hx-include=".form-items"
+				   hx-swap="innerHTML show:#data-content:top"
+				   class="flex items-center justify-center @(i == Model.CurrentPage ? "text-blue-600 bg-blue-50": "text-gray-500 bg-white") px-4 h-10 leading-tight  border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">@i</a>
+			</li>
+		}
+		<li>
+			<a hx-get="@(string.Format(pageUrlTemplate, Model.NextPage, Model.PageSize))"
+			   hx-target="#data-content"
+			   hx-trigger="click"
+			   hx-push-url="true"
+			   hx-include=".form-items"
+			   hx-swap="innerHTML show:#data-content:top"
+			   class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+				Next
+			</a>
+		</li>
+	</ul>
+</nav>

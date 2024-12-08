@@ -7,9 +7,9 @@
 	@await Html.PartialAsync("_SearchForm", Model.SearchModel)
 }
 <div id="data-content">
-	@await Html.PartialAsync("_Data", Model)
+	@await Html.PartialAsync("_Grid", Model)
 </div>
-<div class="htmx-indicator">
+@* <div class="htmx-indicator">
 	<div class="border border-blue-300 shadow rounded-md p-4 w-full">
 		<div class="animate-pulse flex space-x-4">
 			<div class="rounded-full bg-slate-200 h-10 w-10"></div>
@@ -25,4 +25,4 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> *@

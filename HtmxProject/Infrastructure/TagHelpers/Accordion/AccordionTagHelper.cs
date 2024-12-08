@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text;
 using HtmxProject.Infrastructure.StaticContent;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace HtmxProject.Infrastructure.TagHelpers.Accordion;
@@ -19,16 +20,16 @@ public sealed class AccordionTagHelper : TagHelper
     public int Duration { get; set; }
 
     [HtmlAttributeName(name: "aria-enabled")]
-    public bool AriaEnabled { get; set; }
+    public bool AriaEnabled { get; set; } = true;
 
-    [HtmlAttributeName(name: "collapsed")]
-    public bool Collapse { get; set; }
+    [HtmlAttributeName(name: "collapse")]
+    public bool Collapse { get; set; } = true;
 
     [HtmlAttributeName(name: "show-multiple")]
     public bool ShowMultiple { get; set; }
 
     [HtmlAttributeName(name: "only-child-nodes")]
-    public bool OnlyChildNodes { get; set; }
+    public bool OnlyChildNodes { get; set; } = true;
 
     [HtmlAttributeName(name: "open-on-init")]
     public List<string>? OpenOnInit { get; set; }
@@ -65,7 +66,7 @@ public sealed class AccordionTagHelper : TagHelper
         .Add("class", "accordion-container");
 
         //Right side should be random
-        var id = output.Attributes["id"]?.Value ?? "accordion-";
+        var id = output.Attributes["id"]?.Value ?? TagBuilder.CreateSanitizedId("accordion", "-");
 
         context.Items.AddIf(!string.IsNullOrEmpty(ElementClass), AccordionOptions.ContextKeys.ELEMENT_CLASS, () => ElementClass);
         context.Items.AddIf(!string.IsNullOrEmpty(TriggerClass), AccordionOptions.ContextKeys.TRIGGER_CLASS, () => TriggerClass);
@@ -81,7 +82,7 @@ public sealed class AccordionTagHelper : TagHelper
 
             stringBuilder.AppendIf(Duration > 0, $"duration: {Duration.ToString(CultureInfo.InvariantCulture)},");
             stringBuilder.AppendIf(!AriaEnabled, $"ariaEnabled: false,");
-            stringBuilder.AppendIf(!Collapse, $"ariaEnabled: false,");
+            stringBuilder.AppendIf(!Collapse, $"collapse: false,");
             stringBuilder.AppendIf(ShowMultiple, $"showMultiple: true,");
             stringBuilder.AppendIf(!OnlyChildNodes, $"onlyChildNodes: false,");
             stringBuilder.AppendIf(OpenOnInit?.Any() ?? false, () => $"openOnInit: [{string.Join(",", OpenOnInit.Aggregate((prev, next) => $"'{prev}'" + $",'{next}'"))}],");

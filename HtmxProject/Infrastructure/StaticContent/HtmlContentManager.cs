@@ -17,7 +17,7 @@ public class HtmlContentManager
     {
         if (!_scriptParts.ContainsKey(location))
         {
-            _scriptParts.Add(location, new List<string>());
+            _scriptParts.Add(location, []);
         }
 
         if (_scriptParts[location].Contains(script))
