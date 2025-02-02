@@ -1,7 +1,6 @@
 using HtmxProject.Application.Categories;
 using HtmxProject.Pages.Base;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HtmxProject.Pages.Categories;

@@ -25,11 +25,12 @@ else
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.MapStaticAssets();
 
 app.UseRouting();
 app.UseAuthorization();
 app.MapHtmxAntiforgeryScript();
-app.MapRazorPages();
+app.MapRazorPages()
+    .WithStaticAssets();
 
-app.Run();
+await app.RunAsync();
