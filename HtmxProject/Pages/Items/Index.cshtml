@@ -5,11 +5,14 @@
 }
 @section Left {
 	@await Html.PartialAsync("_SearchForm", Model.SearchModel)
+	<island url="/items?handler=ticks" trigger="ticks from:body" class="bg-green-500 mt-4 p-2">
+		<p>Ciao sta mai kako ste</p>
+	</island>
 }
 <div id="data-content">
 	@await Html.PartialAsync("_Grid", Model)
 </div>
-@* <div class="htmx-indicator">
+<div class="htmx-indicator">
 	<div class="border border-blue-300 shadow rounded-md p-4 w-full">
 		<div class="animate-pulse flex space-x-4">
 			<div class="rounded-full bg-slate-200 h-10 w-10"></div>
@@ -25,4 +28,4 @@
 			</div>
 		</div>
 	</div>
-</div> *@
+</div>

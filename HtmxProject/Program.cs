@@ -1,5 +1,6 @@
 using Htmx.TagHelpers;
 using HtmxProject.Database;
+using HtmxProject.Infrastructure;
 using HtmxProject.Infrastructure.StaticContent;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,8 @@ builder.Services.AddRazorPages();
 builder.Services.AddHtmxDbContext(builder.Environment.IsDevelopment());
 builder.Services.AddApplicationDependencies();
 builder.Services.AddScoped<HtmlContentManager>();
+
+builder.Services.AddSingleton<CurrentUser>();
 
 var app = builder.Build();
 
@@ -26,11 +29,15 @@ else
 
 app.UseHttpsRedirection();
 app.MapStaticAssets();
-
 app.UseRouting();
 app.UseAuthorization();
 app.MapHtmxAntiforgeryScript();
 app.MapRazorPages()
     .WithStaticAssets();
+
+app.Lifetime.ApplicationStopped.Register(() =>
+{
+    Console.WriteLine("Application is shutting down. Do cleanup...");
+});
 
 await app.RunAsync();

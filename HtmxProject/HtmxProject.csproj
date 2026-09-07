@@ -6,17 +6,18 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
     <NoWarn>CA2007</NoWarn>
+    <UserSecretsId>e8781cb5-8be0-48e7-b453-460e2ff4ac02</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Htmx" Version="1.8.1" />
-    <PackageReference Include="Htmx.TagHelpers" Version="1.8.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="9.0.1" />
-    <PackageReference Include="SonarAnalyzer.Csharp" Version="10.6.0.109712">
+    <PackageReference Include="Htmx" Version="1.9.0" />
+    <PackageReference Include="Htmx.TagHelpers" Version="1.9.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="9.0.10" />
+    <PackageReference Include="SonarAnalyzer.Csharp" Version="10.15.0.120848">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="System.Text.Json" Version="9.0.1" />
+    <PackageReference Include="System.Text.Json" Version="9.0.10" />
   </ItemGroup>
 
   <ItemGroup>

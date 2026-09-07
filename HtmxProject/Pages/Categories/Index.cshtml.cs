@@ -5,15 +5,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace HtmxProject.Pages.Categories;
 
-//[IgnoreAntiforgeryToken]
-public class IndexModel : PageModel
+public class IndexModel(ICategoryService categoryService) : PageModel
 {
-    private readonly ICategoryService _categoryService;
-
-    public IndexModel(ICategoryService categoryService)
-    {
-        _categoryService = categoryService;
-    }
+    private readonly ICategoryService _categoryService = categoryService;
 
     public void OnGet()
     {
@@ -30,10 +24,5 @@ public class IndexModel : PageModel
         });
 
         return Partial("_AutocompleteResults", categories.ToList());
-    }
-
-    public IActionResult OnGetTestovka()
-    {
-        return Content("<p>Testovka</p>");
     }
 }

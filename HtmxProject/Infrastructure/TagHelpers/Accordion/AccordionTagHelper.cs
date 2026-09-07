@@ -11,10 +11,7 @@ public sealed class AccordionTagHelper : TagHelper
 {
     private readonly HtmlContentManager _htmlContentManager;
 
-    public AccordionTagHelper(HtmlContentManager htmlContentManager)
-    {
-        _htmlContentManager = htmlContentManager;
-    }
+    public AccordionTagHelper(HtmlContentManager htmlContentManager) => _htmlContentManager = htmlContentManager;
 
     [HtmlAttributeName(name: "duration")]
     public int Duration { get; set; }
@@ -80,12 +77,21 @@ public sealed class AccordionTagHelper : TagHelper
             //Set init capacity to possible number of attr?
             var stringBuilder = new StringBuilder();
 
+            var initTabsCount = OpenOnInit?.Count ?? 0;
+            string? tabsToInitJs = null;
+            if (initTabsCount > 0)
+            {
+                tabsToInitJs = initTabsCount > 1
+                ? $"openOnInit: [{string.Join(",", OpenOnInit!.Aggregate((prev, next) => $"'{prev}'" + $",'{next}'"))}]"
+                : $"openOnInit: ['{OpenOnInit![0]}']";
+            }
+
             stringBuilder.AppendIf(Duration > 0, $"duration: {Duration.ToString(CultureInfo.InvariantCulture)},");
             stringBuilder.AppendIf(!AriaEnabled, $"ariaEnabled: false,");
             stringBuilder.AppendIf(!Collapse, $"collapse: false,");
             stringBuilder.AppendIf(ShowMultiple, $"showMultiple: true,");
             stringBuilder.AppendIf(!OnlyChildNodes, $"onlyChildNodes: false,");
-            stringBuilder.AppendIf(OpenOnInit?.Any() ?? false, () => $"openOnInit: [{string.Join(",", OpenOnInit.Aggregate((prev, next) => $"'{prev}'" + $",'{next}'"))}],");
+            stringBuilder.AppendIf(initTabsCount > 0, () => tabsToInitJs);
             stringBuilder.AppendIf(!string.IsNullOrEmpty(ElementClass), $"elementClass: '{ElementClass}',");
             stringBuilder.AppendIf(!string.IsNullOrEmpty(TriggerClass), $"triggerClass: '{TriggerClass}',");
             stringBuilder.AppendIf(!string.IsNullOrEmpty(PanelClass), $"panelClass: '{PanelClass}',");

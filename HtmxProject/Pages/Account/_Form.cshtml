@@ -1,0 +1,11 @@
+﻿@model HtmxProject.Pages.Account.UpdateProfileModel
+
+<fieldset id="update-profile">
+	<form hx-post="/account/updateprofile" hx-target="#update-profile" hx-swap="outerHTML">
+		<div asp-validation-summary="ModelOnly"></div>
+		<input asp-for="Input.Name" placeholder="Enter your name" />
+		<label class="mb-2 block text-sm font-medium text-gray-900 dark:text-white" asp-for="Input.Avatar">Upload file</label>
+		<input asp-for="Input.Avatar" class="block w-full cursor-pointer rounded-lg border border-gray-300 bg-gray-50 text-sm text-gray-900 focus:outline-none dark:border-gray-600 dark:bg-gray-700 dark:text-gray-400 dark:placeholder-gray-400" type="file" />
+		<button type="submit">Submit</button>
+	</form>
+</fieldset>

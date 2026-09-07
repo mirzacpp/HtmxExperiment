@@ -11,21 +11,22 @@ public enum ResourceLocation
 
 public class HtmlContentManager
 {
-    private readonly Dictionary<ResourceLocation, IList<string>> _scriptParts = new();
+    private readonly Dictionary<ResourceLocation, IList<string>> _scriptParts = [];
 
     public void AddScriptParts(ResourceLocation location, string script)
     {
-        if (!_scriptParts.ContainsKey(location))
+        if (!_scriptParts.TryGetValue(location, out var value))
         {
-            _scriptParts.Add(location, []);
+            value = [];
+            _scriptParts.Add(location, value);
         }
 
-        if (_scriptParts[location].Contains(script))
+        if (value.Contains(script))
         {
             return;
         }
 
-        _scriptParts[location].Add(script);
+        value.Add(script);
     }
 
     public IHtmlContent GenerateScriptParts(ResourceLocation location)

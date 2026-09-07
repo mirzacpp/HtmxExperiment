@@ -48,7 +48,7 @@ public class IndexModel : PaginatedPageModel
         PageIndex,
         PageSize,
         SearchModel?.Term,
-        SearchModel.CategoryId);
+        SearchModel?.CategoryId);
 
         SearchModel = new ItemsSearchModel
         {
@@ -85,5 +85,17 @@ public class IndexModel : PaginatedPageModel
         };
 
         return Partial("_SearchForm", model);
+    }
+
+    public async Task<IActionResult> OnPostAddToCartAsync()
+    {
+        await Task.Delay(3000);
+        Response.Htmx(h => h.WithTrigger("ticks"));
+        return new NoContentResult();
+    }
+
+    public IActionResult OnGetTicks()
+    {
+        return Partial("_Ticks", DateTime.UtcNow.Ticks);
     }
 }

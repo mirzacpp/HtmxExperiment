@@ -5,14 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HtmxProject.Application.Categories
 {
-	public class CategoryService : ICategoryService
+	public class CategoryService(HtmxDbContext context) : ICategoryService
 	{
-		private readonly HtmxDbContext _context;
-
-		public CategoryService(HtmxDbContext context)
-		{
-			_context = context;
-		}
+		private readonly HtmxDbContext _context = context;
 
 		public async Task<IReadOnlyCollection<NameValueDto<Guid>>> GetAsNameValueAsync(int take = 20, string? searchTerm = null)
 		{

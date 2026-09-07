@@ -1,0 +1,9 @@
+﻿@page
+@model HtmxProject.Pages.Account.UpdateProfileModel
+@{
+	Layout = "_OneColumn";
+}
+<div hx-trigger="avatar from:body" class="hidden">
+	<p>This will be displayed on post</p>
+</div>
+@await Html.PartialAsync("_Form", Model)

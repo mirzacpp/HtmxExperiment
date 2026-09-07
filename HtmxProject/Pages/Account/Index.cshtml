@@ -1,0 +1,20 @@
+﻿@page "{handler?}"
+@model HtmxProject.Pages.Account.IndexModel
+@{
+    Layout = "_TwoColumn";
+}
+@section Left {
+    <p>Left column</p>
+}
+<div class="mt-8 max-w-md">
+    <div class="grid grid-cols-1 gap-6">
+        <label class="block">
+            <span class="text-gray-700">First name</span>
+            <input asp-for="FirstName" type="text" class="mt-1 block w-full" placeholder="">
+        </label>
+        <label class="block">
+            <span class="text-gray-700">Email address</span>
+            <input asp-for="LastName" class="mt-1 block w-full" placeholder="john@example.com">
+        </label>
+    </div>
+</div>
